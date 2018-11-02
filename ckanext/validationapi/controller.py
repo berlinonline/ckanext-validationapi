@@ -84,7 +84,6 @@ class ValidationController(base.BaseController):
             validator = get_validator(validator_name)
             validator_signature = inspect.getargspec(validator)
             args = validator_signature[0]
-            LOG.debug("{} args: {}".format(validator_name, args))
             num_args = len(args)
             if (inspect.ismethod(validator)):
                 # if this is a method, we need to ignore the first
