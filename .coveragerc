@@ -1,0 +1,6 @@
+[report]
+omit =
+    */site-packages/*
+    */python?.?/*
+    ckan/*
+    */__init__.py    
