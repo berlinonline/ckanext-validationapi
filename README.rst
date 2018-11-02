@@ -8,26 +8,6 @@
 .. image:: https://coveralls.io/repos/berlinonline/ckanext-validationapi/badge.svg
   :target: https://coveralls.io/r/berlinonline/ckanext-validationapi
 
-.. image:: https://pypip.in/download/ckanext-validationapi/badge.svg
-    :target: https://pypi.python.org/pypi//ckanext-validationapi/
-    :alt: Downloads
-
-.. image:: https://pypip.in/version/ckanext-validationapi/badge.svg
-    :target: https://pypi.python.org/pypi/ckanext-validationapi/
-    :alt: Latest Version
-
-.. image:: https://pypip.in/py_versions/ckanext-validationapi/badge.svg
-    :target: https://pypi.python.org/pypi/ckanext-validationapi/
-    :alt: Supported Python versions
-
-.. image:: https://pypip.in/status/ckanext-validationapi/badge.svg
-    :target: https://pypi.python.org/pypi/ckanext-validationapi/
-    :alt: Development Status
-
-.. image:: https://pypip.in/license/ckanext-validationapi/badge.svg
-    :target: https://pypi.python.org/pypi/ckanext-validationapi/
-    :alt: License
-
 =====================
 ckanext-validationapi
 =====================
@@ -80,6 +60,8 @@ Here are some examples for communicating with the validation API via curl:
 Valid input, unchanged 
 ======================
 
+::
+
   :~$ curl -X POST --data '{ "validator": "email_validator", "value": "jane.doe@company.com" }' -H "Content-Type: application/json" $CKAN_DEV_URL/api/validation/validate
 
 .. code:: json
@@ -94,6 +76,8 @@ Valid input, unchanged
 Valid input, changed 
 ====================
 
+::
+
   :~$ curl -X POST --data '{ "validator": "isodate", "value": "2004-10-10" }' -H "Content-Type: application/json" $CKAN_DEV_URL/api/validation/validate
 
 .. code:: json
@@ -107,6 +91,8 @@ Valid input, changed
 
 Invalid input
 =============
+
+::
 
   :~$ curl -X POST --data '{ "validator": "isodate", "value": "2004-10-10x" }' -H "Content-Type: application/json" $CKAN_DEV_URL/api/validation/validate
 
@@ -128,6 +114,8 @@ the HTTP Response Code 400 (Bad Request).
 Unknown Validator
 -----------------
 
+::
+
   :~$ curl -X POST --data '{ "validator": "foolidator", "value": "barbar" }' -H "Content-Type: application/json" $CKAN_DEV_URL/api/validation/validate
 
 .. code:: json
@@ -141,6 +129,8 @@ Unknown Validator
 
 Wrong Request Format
 --------------------
+
+::
 
   :~$ curl $CKAN_DEV_URL/api/validation/validate
 
