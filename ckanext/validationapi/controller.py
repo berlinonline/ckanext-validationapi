@@ -85,7 +85,7 @@ class ValidationController(base.BaseController):
             validator_signature = inspect.getargspec(validator)
             args = validator_signature[0]
             num_args = len(args)
-            if (inspect.ismethod(validator)):
+            if inspect.ismethod(validator):
                 # if this is a method, we need to ignore the first
                 # parameter (cls/self)
                 num_args -= 1
@@ -137,8 +137,8 @@ class ValidationController(base.BaseController):
                       (inst)
                 raise ValueError(msg)
             if not request_data:
-                msg = "Invalid request. Please use POST method" \
-                    " for your request"
+                msg = "Invalid request. Please use POST method " \
+                    "for your request"
                 raise ValueError(msg)
         if request_data and request.content_type != 'multipart/form-data':
             try:

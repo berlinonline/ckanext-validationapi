@@ -28,7 +28,7 @@ Plugins can add more validators by implementing the
 `IValidators <https://docs.ckan.org/en/latest/extensions/plugin-interfaces.html#ckan.plugins.interfaces.IValidators>`_
 interface.
 
-The API is accessible via ``{CKAN_URL}/api/validation``; currently its only method is 
+The API is accessible via ``$CKAN_URL/api/validation``; currently its only method is 
 ``validate``. Only POST request with content type ``application/json`` are accepted.
 
 The expected payload to ``validate`` is a JSON object with two attributes:
@@ -62,7 +62,10 @@ Valid input, unchanged
 
 ::
 
-  :~$ curl -X POST --data '{ "validator": "email_validator", "value": "jane.doe@company.com" }' -H "Content-Type: application/json" $CKAN_DEV_URL/api/validation/validate
+  curl -X POST \
+       --data '{ "validator": "email_validator", "value": "jane.doe@company.com" }' \
+       -H "Content-Type: application/json" \
+       $CKAN_URL/api/validation/validate
 
 .. code:: json
 
@@ -78,7 +81,10 @@ Valid input, changed
 
 ::
 
-  :~$ curl -X POST --data '{ "validator": "isodate", "value": "2004-10-10" }' -H "Content-Type: application/json" $CKAN_DEV_URL/api/validation/validate
+  curl -X POST \
+       --data '{ "validator": "isodate", "value": "2004-10-10" }' \
+       -H "Content-Type: application/json" \
+       $CKAN_URL/api/validation/validate
 
 .. code:: json
 
@@ -94,7 +100,10 @@ Invalid input
 
 ::
 
-  :~$ curl -X POST --data '{ "validator": "isodate", "value": "2004-10-10x" }' -H "Content-Type: application/json" $CKAN_DEV_URL/api/validation/validate
+  curl -X POST \
+       --data '{ "validator": "isodate", "value": "2004-10-10x" }' \
+       -H "Content-Type: application/json" \
+       $CKAN_URL/api/validation/validate
 
 .. code:: json
 
@@ -116,7 +125,10 @@ Unknown Validator
 
 ::
 
-  :~$ curl -X POST --data '{ "validator": "foolidator", "value": "barbar" }' -H "Content-Type: application/json" $CKAN_DEV_URL/api/validation/validate
+  curl -X POST \
+       --data '{ "validator": "foolidator", "value": "barbar" }' \
+       -H "Content-Type: application/json" \
+       $CKAN_URL/api/validation/validate
 
 .. code:: json
 
@@ -132,7 +144,7 @@ Wrong Request Format
 
 ::
 
-  :~$ curl $CKAN_DEV_URL/api/validation/validate
+  curl $CKAN_URL/api/validation/validate
 
 .. code:: json
 
