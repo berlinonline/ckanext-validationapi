@@ -6,6 +6,17 @@ This module implements various type of errors for ckanext-validationapi.
 import logging
 
 LOG = logging.getLogger(__name__)
+VALIDATION_ERROR = 0
+WRONG_HTTP_METHOD_ERROR = 1
+WRONG_CONTENT_TYPE_ERROR = 2
+NO_REQUEST_DATA_ERROR = 3
+CANNOT_DECODE_JSON_ERROR = 4
+WRONG_JSON_TYPE_ERROR = 5
+WRONG_JSON_STRUCTURE_ERROR = 6
+UNKNOWN_VALIDATOR_ERROR = 7
+UNEXPECTED_ARGUMENTS_ERROR = 8
+OTHER_ERROR = 20
+
 
 class ValidationError(Exception):
     """
@@ -22,7 +33,7 @@ class WrongHTTPMethod(ValidationError):
 
     def __init__(self, msg):
         super(WrongHTTPMethod, self).__init__(msg)
-        self.error_code = 1
+        self.error_code = WRONG_HTTP_METHOD_ERROR
 
 class WrongContentType(ValidationError):
     """
@@ -31,7 +42,7 @@ class WrongContentType(ValidationError):
 
     def __init__(self, msg):
         super(WrongContentType, self).__init__(msg)
-        self.error_code = 2
+        self.error_code = WRONG_CONTENT_TYPE_ERROR
 
 class NoRequestDataFound(ValidationError):
     """
@@ -40,7 +51,7 @@ class NoRequestDataFound(ValidationError):
 
     def __init__(self, msg):
         super(NoRequestDataFound, self).__init__(msg)
-        self.error_code = 3
+        self.error_code = NO_REQUEST_DATA_ERROR
 
 class CannotDecodeJSON(ValidationError):
     """
@@ -49,7 +60,7 @@ class CannotDecodeJSON(ValidationError):
 
     def __init__(self, msg):
         super(CannotDecodeJSON, self).__init__(msg)
-        self.error_code = 4
+        self.error_code = CANNOT_DECODE_JSON_ERROR
 
 class WrongJSONType(ValidationError):
     """
@@ -58,7 +69,7 @@ class WrongJSONType(ValidationError):
 
     def __init__(self, msg):
         super(WrongJSONType, self).__init__(msg)
-        self.error_code = 5
+        self.error_code = WRONG_JSON_TYPE_ERROR
 
 class WrongJSONStructure(ValidationError):
     """
@@ -67,7 +78,7 @@ class WrongJSONStructure(ValidationError):
 
     def __init__(self, msg):
         super(WrongJSONStructure, self).__init__(msg)
-        self.error_code = 6
+        self.error_code = WRONG_JSON_STRUCTURE_ERROR
 
 class UnknownValidator(ValidationError):
     """
@@ -76,7 +87,7 @@ class UnknownValidator(ValidationError):
 
     def __init__(self, msg):
         super(UnknownValidator, self).__init__(msg)
-        self.error_code = 7
+        self.error_code = UNKNOWN_VALIDATOR_ERROR
 
 class UnexpectedArguments(ValidationError):
     """
@@ -85,7 +96,7 @@ class UnexpectedArguments(ValidationError):
 
     def __init__(self, msg):
         super(UnexpectedArguments, self).__init__(msg)
-        self.error_code = 8
+        self.error_code = UNEXPECTED_ARGUMENTS_ERROR
 
 class OtherError(ValidationError):
     """
@@ -94,7 +105,7 @@ class OtherError(ValidationError):
 
     def __init__(self, msg):
         super(OtherError, self).__init__(msg)
-        self.error_code = 20
+        self.error_code = OTHER_ERROR
 
 
 
