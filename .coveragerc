@@ -3,4 +3,5 @@ omit =
     */site-packages/*
     */python?.?/*
     ckan/*
-    */__init__.py    
+    */__init__.py
+    ckanext/validationapi/weird/*

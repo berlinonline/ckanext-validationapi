@@ -81,6 +81,7 @@ setup(
     entry_points='''
         [ckan.plugins]
         validationapi=ckanext.validationapi.plugin:ValidationapiPlugin
+        weird_validators=ckanext.validationapi.weird.weird_validators:WeirdValidators
 
         [babel.extractors]
         ckan = ckan.lib.extract:extract_ckan
