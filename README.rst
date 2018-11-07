@@ -29,7 +29,7 @@ Plugins can add more validators by implementing the
 interface.
 
 The API is accessible via ``$CKAN_URL/api/validation``; currently its only method is 
-``validate``. Only POST request with content type ``application/json`` are accepted.
+``validate``. Only POST requests with content type ``application/json`` are accepted.
 
 The expected payload to ``validate`` is a JSON object with two attributes:
 

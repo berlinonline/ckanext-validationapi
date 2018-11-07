@@ -5,14 +5,21 @@ echo "This is travis-build.bash..."
 
 echo "Installing the packages that CKAN requires..."
 sudo apt-get update -qq
-sudo apt-get install postgresql-$PGVERSION solr-jetty libcommons-fileupload-java:amd64=1.2.2-1
+sudo apt-get install solr-jetty libcommons-fileupload-java
 
 echo "Installing CKAN and its Python dependencies..."
 git clone https://github.com/ckan/ckan
 cd ckan
 export latest_ckan_release_branch=`git branch --all | grep remotes/origin/release-v | sort -r | sed 's/remotes\/origin\///g' | head -n 1`
-echo "CKAN branch: $latest_ckan_release_branch"
-git checkout $latest_ckan_release_branch
+if [ $CKANVERSION == 'master' ]
+then
+    echo "CKAN version: master"
+else
+    CKAN_TAG=$(git tag | grep ^ckan-$CKANVERSION | sort --version-sort | tail -n 1)
+    git checkout $CKAN_TAG
+    echo "CKAN version: ${CKAN_TAG#ckan-}"
+fi
+sed -i '/psycopg2/c\psycopg2' requirements.txt
 python setup.py develop
 pip install -r requirements.txt --allow-all-external
 pip install -r dev-requirements.txt --allow-all-external
@@ -32,7 +39,7 @@ cd ckan
 paster db init -c test-core.ini
 cd -
 
-echo "Installing ckanext-validationapi and its requirements..."
+echo "Installing ckanext-berlin_dataset_schema and its requirements..."
 python setup.py develop
 pip install -r dev-requirements.txt
 
