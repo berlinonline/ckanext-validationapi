@@ -118,7 +118,7 @@ Errors
 ======
 
 If possible, validationapi will catch errors and provide an error message in the same format as above, but with 
-the HTTP Response Code 400 (Bad Request).
+the HTTP Response Code 400 (Bad Request). Below are some examples:
 
 Unknown Validator
 -----------------
@@ -133,10 +133,13 @@ Unknown Validator
 .. code:: json
 
     {
-      "message": "Bad Request - Validator `foolidator` does not exist",
       "validator": "foolidator",
       "value": "barbar",
-      "success": false
+      "success": false,
+      "error": {
+        "message": "Bad Request - Validator `foolidator` does not exist",
+        "code": 7
+      }
     }
 
 Wrong Request Format
@@ -149,11 +152,29 @@ Wrong Request Format
 .. code:: json
 
     {
-      "message": "Bad Request - Validation API accepts only POST requests with content type 'application/json'.",
       "validator": null,
       "value": null,
-      "success": false
+      "success": false,
+      "error": {
+        "message": "Bad Request - Validation API accepts only POST requests with content type 'application/json'.",
+        "code": 1
+      }
     }
+
+Error Codes
+-----------
+
+The complete list of error codes is:
+
+* Wrong HTTP method = 1
+* Wrong content type = 2
+* No request data found = 3
+* Cannot decode JSON = 4
+* Wrong type of JSON = 5
+* Wrong JSON structure = 6
+* Unknown validator = 7
+* Validator has unexpected number of arguments = 8
+* Unexpected error = 20
 
 
 ------------
