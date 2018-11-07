@@ -72,7 +72,7 @@ class ValidationController(base.BaseController):
                 "value": original_value ,
                 "error": {
                     "message": response_message ,
-                    "code": e.error_code
+                    "code": e.error_code()
                 }
             }
             return self._finish(400, response_data)

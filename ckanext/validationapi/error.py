@@ -24,7 +24,7 @@ class ValidationError(Exception):
     """
 
     def error_code(self):
-        return self.error_code
+        return self._error_code
 
 class WrongHTTPMethod(ValidationError):
     """
@@ -33,7 +33,7 @@ class WrongHTTPMethod(ValidationError):
 
     def __init__(self, msg):
         super(WrongHTTPMethod, self).__init__(msg)
-        self.error_code = WRONG_HTTP_METHOD_ERROR
+        self._error_code = WRONG_HTTP_METHOD_ERROR
 
 class WrongContentType(ValidationError):
     """
@@ -42,7 +42,7 @@ class WrongContentType(ValidationError):
 
     def __init__(self, msg):
         super(WrongContentType, self).__init__(msg)
-        self.error_code = WRONG_CONTENT_TYPE_ERROR
+        self._error_code = WRONG_CONTENT_TYPE_ERROR
 
 class NoRequestDataFound(ValidationError):
     """
@@ -51,7 +51,7 @@ class NoRequestDataFound(ValidationError):
 
     def __init__(self, msg):
         super(NoRequestDataFound, self).__init__(msg)
-        self.error_code = NO_REQUEST_DATA_ERROR
+        self._error_code = NO_REQUEST_DATA_ERROR
 
 class CannotDecodeJSON(ValidationError):
     """
@@ -60,7 +60,7 @@ class CannotDecodeJSON(ValidationError):
 
     def __init__(self, msg):
         super(CannotDecodeJSON, self).__init__(msg)
-        self.error_code = CANNOT_DECODE_JSON_ERROR
+        self._error_code = CANNOT_DECODE_JSON_ERROR
 
 class WrongJSONType(ValidationError):
     """
@@ -69,7 +69,7 @@ class WrongJSONType(ValidationError):
 
     def __init__(self, msg):
         super(WrongJSONType, self).__init__(msg)
-        self.error_code = WRONG_JSON_TYPE_ERROR
+        self._error_code = WRONG_JSON_TYPE_ERROR
 
 class WrongJSONStructure(ValidationError):
     """
@@ -78,7 +78,7 @@ class WrongJSONStructure(ValidationError):
 
     def __init__(self, msg):
         super(WrongJSONStructure, self).__init__(msg)
-        self.error_code = WRONG_JSON_STRUCTURE_ERROR
+        self._error_code = WRONG_JSON_STRUCTURE_ERROR
 
 class UnknownValidator(ValidationError):
     """
@@ -87,7 +87,7 @@ class UnknownValidator(ValidationError):
 
     def __init__(self, msg):
         super(UnknownValidator, self).__init__(msg)
-        self.error_code = UNKNOWN_VALIDATOR_ERROR
+        self._error_code = UNKNOWN_VALIDATOR_ERROR
 
 class UnexpectedArguments(ValidationError):
     """
@@ -96,7 +96,7 @@ class UnexpectedArguments(ValidationError):
 
     def __init__(self, msg):
         super(UnexpectedArguments, self).__init__(msg)
-        self.error_code = UNEXPECTED_ARGUMENTS_ERROR
+        self._error_code = UNEXPECTED_ARGUMENTS_ERROR
 
 class OtherError(ValidationError):
     """
@@ -105,7 +105,7 @@ class OtherError(ValidationError):
 
     def __init__(self, msg):
         super(OtherError, self).__init__(msg)
-        self.error_code = OTHER_ERROR
+        self._error_code = OTHER_ERROR
 
 
 
