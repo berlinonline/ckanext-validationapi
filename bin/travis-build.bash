@@ -1,16 +1,15 @@
-#!/bin/bash
+    #nex!/bin/bash
 set -e
 
 echo "This is travis-build.bash..."
 
 echo "Installing the packages that CKAN requires..."
 sudo apt-get update -qq
-sudo apt-get install solr-jetty libcommons-fileupload-java
+sudo apt-get install solr-jetty
 
 echo "Installing CKAN and its Python dependencies..."
 git clone https://github.com/ckan/ckan
 cd ckan
-export latest_ckan_release_branch=`git branch --all | grep remotes/origin/release-v | sort -r | sed 's/remotes\/origin\///g' | head -n 1`
 if [ $CKANVERSION == 'master' ]
 then
     echo "CKAN version: master"
@@ -19,29 +18,58 @@ else
     git checkout $CKAN_TAG
     echo "CKAN version: ${CKAN_TAG#ckan-}"
 fi
-sed -i '/psycopg2/c\psycopg2' requirements.txt
+
+# install the recommended version of setuptools
+if [ -f requirement-setuptools.txt ]
+then
+    echo "Updating setuptools..."
+    pip install -r requirement-setuptools.txt
+fi
+
 python setup.py develop
-pip install -r requirements.txt --allow-all-external
-pip install -r dev-requirements.txt --allow-all-external
+
+
+# TODO: remove once 2.5.3 is relesed
+# Pin this as newer versions installed by RDFLib give setuptools troubles
+pip install "html5lib==0.9999999"
+
+if [ $CKANVERSION == '2.7' ]
+then
+    echo "Installing setuptools"
+    pip install setuptools==39.0.1
+fi
+
+pip install -r requirements.txt
+pip install -r dev-requirements.txt
 cd -
+
+echo "Setting up Solr..."
+printf "NO_START=0\nJETTY_HOST=127.0.0.1\nJETTY_PORT=8983\nJAVA_HOME=$JAVA_HOME" | sudo tee /etc/default/jetty
+sudo cp ckan/ckan/config/solr/schema.xml /etc/solr/conf/schema.xml
+sudo service jetty restart
 
 echo "Creating the PostgreSQL user and database..."
 sudo -u postgres psql -c "CREATE USER ckan_default WITH PASSWORD 'pass';"
 sudo -u postgres psql -c 'CREATE DATABASE ckan_test WITH OWNER ckan_default;'
-
-echo "SOLR config..."
-# Solr is multicore for tests on ckan master, but it's easier to run tests on
-# Travis single-core. See https://github.com/ckan/ckan/issues/2972
-sed -i -e 's/solr_url.*/solr_url = http:\/\/127.0.0.1:8983\/solr/' ckan/test-core.ini
 
 echo "Initialising the database..."
 cd ckan
 paster db init -c test-core.ini
 cd -
 
-echo "Installing ckanext-berlin_dataset_schema and its requirements..."
+echo "Installing ckanext-harvest and its requirements..."
+git clone https://github.com/ckan/ckanext-harvest
+cd ckanext-harvest
 python setup.py develop
+pip install -r pip-requirements.txt
+paster harvester initdb -c ../ckan/test-core.ini
+cd -
+
+echo "Installing ckanext-dcat and its requirements..."
+pip install -r requirements.txt
 pip install -r dev-requirements.txt
+python setup.py develop
+
 
 echo "Moving test.ini into a subdir..."
 mkdir subdir
