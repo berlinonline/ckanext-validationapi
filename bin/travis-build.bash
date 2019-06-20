@@ -26,6 +26,7 @@ then
     pip install -r requirement-setuptools.txt
 fi
 
+sed -i '/psycopg2/c\psycopg2' requirements.txt
 python setup.py develop
 
 
