@@ -1,4 +1,4 @@
-    #nex!/bin/bash
+#!/bin/bash
 set -e
 
 echo "This is travis-build.bash..."
@@ -26,51 +26,37 @@ then
     pip install -r requirement-setuptools.txt
 fi
 
-sed -i '/psycopg2/c\psycopg2' requirements.txt
-python setup.py develop
-
-
-# TODO: remove once 2.5.3 is relesed
-# Pin this as newer versions installed by RDFLib give setuptools troubles
-pip install "html5lib==0.9999999"
-
 if [ $CKANVERSION == '2.7' ]
 then
     echo "Installing setuptools"
     pip install setuptools==39.0.1
 fi
 
+python setup.py develop
 pip install -r requirements.txt
 pip install -r dev-requirements.txt
 cd -
 
-echo "Setting up Solr..."
-printf "NO_START=0\nJETTY_HOST=127.0.0.1\nJETTY_PORT=8983\nJAVA_HOME=$JAVA_HOME" | sudo tee /etc/default/jetty
-sudo cp ckan/ckan/config/solr/schema.xml /etc/solr/conf/schema.xml
-sudo service jetty restart
-
 echo "Creating the PostgreSQL user and database..."
 sudo -u postgres psql -c "CREATE USER ckan_default WITH PASSWORD 'pass';"
 sudo -u postgres psql -c 'CREATE DATABASE ckan_test WITH OWNER ckan_default;'
+
+echo "Setting up Solr..."
+# Solr is multicore for tests on ckan master, but it's easier to run tests on
+# Travis single-core. See https://github.com/ckan/ckan/issues/2972
+sed -i -e 's/solr_url.*/solr_url = http:\/\/127.0.0.1:8983\/solr/' ckan/test-core.ini
+printf "NO_START=0\nJETTY_HOST=127.0.0.1\nJETTY_PORT=8983\nJAVA_HOME=$JAVA_HOME" | sudo tee /etc/default/jetty
+sudo cp ckan/ckan/config/solr/schema.xml /etc/solr/conf/schema.xml
+sudo service jetty restart
 
 echo "Initialising the database..."
 cd ckan
 paster db init -c test-core.ini
 cd -
 
-echo "Installing ckanext-harvest and its requirements..."
-git clone https://github.com/ckan/ckanext-harvest
-cd ckanext-harvest
+echo "Installing ckanext-validationapi and its requirements..."
 python setup.py develop
-pip install -r pip-requirements.txt
-paster harvester initdb -c ../ckan/test-core.ini
-cd -
-
-echo "Installing ckanext-dcat and its requirements..."
-pip install -r requirements.txt
 pip install -r dev-requirements.txt
-python setup.py develop
-
 
 echo "Moving test.ini into a subdir..."
 mkdir subdir
