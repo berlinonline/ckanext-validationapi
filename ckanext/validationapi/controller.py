@@ -152,12 +152,12 @@ class ValidationController(base.BaseController):
                     request_data = h.json.loads(request_data, encoding='utf8')
                 except ValueError, e:
                     raise error.CannotDecodeJSON('Error decoding JSON data. '
-                                     'Error: %r '
-                                     'JSON data extracted from the request: %r' %
-                                     (e, request_data))
+                                                 'Error: %r '
+                                                 'JSON data extracted from the request: %r' %
+                                                 (e, request_data))
                 if not isinstance(request_data, dict):
                     raise error.WrongJSONType('Request data JSON decoded to %r but '
-                                     'it needs to be a dictionary.' % request_data)
+                                              'it needs to be a dictionary.' % request_data)
             else:
                 raise error.WrongContentType(
                     "Validation API accepts only POST requests with "
@@ -168,4 +168,3 @@ class ValidationController(base.BaseController):
                 "content type 'application/json'.")
 
         return request_data
-
