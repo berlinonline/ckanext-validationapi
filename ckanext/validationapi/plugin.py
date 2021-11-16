@@ -3,16 +3,17 @@ Main module for ckanext-validationapi
 """
 from ckan.plugins import implements, SingletonPlugin
 from ckan.plugins import IConfigurer
-from ckan.plugins import IRoutes
+from ckan.plugins import IBlueprint
 import ckan.plugins.toolkit as toolkit
 
+from ckanext.validationapi import blueprint
 
 class ValidationapiPlugin(SingletonPlugin):
     """
     Main plugin class for ckanext-validationapi
     """
     implements(IConfigurer)
-    implements(IRoutes, inherit=True)
+    implements(IBlueprint)
 
     # IConfigurer:
 
@@ -25,16 +26,8 @@ class ValidationapiPlugin(SingletonPlugin):
         toolkit.add_public_directory(config_, 'public')
         toolkit.add_resource('fanstatic', 'validationapi')
 
-    # IRoutes:
+    # IBlueprint
 
-    def before_map(self, map_):
-        """
-        Implementation of
-        https://docs.ckan.org/en/latest/extensions/plugin-interfaces.html#ckan.plugins.interfaces.IRoutes.before_map
-        """
-        map_.connect(
-            '/api/validation/validate',
-            controller='ckanext.validationapi.controller:ValidationController',
-            action='validate')
+    def get_blueprint(self):
+        return blueprint.validationapi
 
-        return map_
