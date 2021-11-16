@@ -2,6 +2,10 @@
 
 ## Development
 
+- Convert from Python 2 to Python 3:
+  - Switch routing from IRoutes (Pylons) to IBluepring
+  - Switch testing framework from Nose to Pytest.
+
 ## 0.1.0
 
 - Introduced specific error classes with codes.
