@@ -181,7 +181,7 @@ The complete list of error codes is:
 Requirements
 ------------
 
-* Has been tested with CKAN 2.7.3.
+* Has been tested with CKAN 2.9.4 and requires Python 3.
 
 
 ------------
@@ -291,3 +291,15 @@ To publish a new version to PyPI follow these steps:
 
        git tag 0.0.2
        git push --tags
+
+License
+=======
+
+This material is copyright ©
+`BerlinOnline Stadtportal GmbH & Co. KG <https://www.berlinonline.net/>`_
+.
+
+This extension is open and licensed under the GNU Affero General Public License (AGPL) v3.0.
+Its full text may be found at:
+
+http://www.fsf.org/licensing/licenses/agpl-3.0.html
