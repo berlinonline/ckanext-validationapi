@@ -92,9 +92,7 @@ def execute_validator(validator_name, value):
         elif num_args == 4:
             value = validator(value, {}, {}, c)
         else:
-            raise error.UnexpectedArguments(
-                "{} has an unexpected number of arguments: {}".format(validator_name, args)
-            )
+            raise error.UnexpectedArguments(f"{validator_name} has an unexpected number of arguments: {args}")
         return value
     except (UnknownValidator, TypeError) as e:
         raise error.UnknownValidator(e)
