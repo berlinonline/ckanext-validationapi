@@ -36,7 +36,6 @@ cover/
 .tox/
 .coverage
 .cache
-nosetests.xml
 coverage.xml
 
 # Sphinx documentation
@@ -44,7 +43,6 @@ docs/_build/
 
 # OS X
 .DS_Store
-
 
 # dev stuff
 .vscode/
