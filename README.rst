@@ -2,8 +2,8 @@
    these badges work. The necessary Travis and Coverage config files have been
    generated for you.
 
-.. image:: https://github.com/berlinonline/ckanext-berlin_dataset_schema/workflows/Tests/badge.svg?branch=master)
-    :target: https://github.com/berlinonline/ckanext-berlin_dataset_schema/actions
+.. image:: https://github.com/berlinonline/ckanext-validationapi/workflows/Tests/badge.svg?branch=master
+    :target: https://github.com/berlinonline/ckanext-validationapi/actions
     :alt: Tests
 
 
