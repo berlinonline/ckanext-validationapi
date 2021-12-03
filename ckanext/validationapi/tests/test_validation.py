@@ -103,53 +103,52 @@ class TestValidationController(object):
     # Success Tests
     # -------------
 
-    def test_valid_value_returns_200_with_correct_structure(self, app):
-        test_data = [
-            { 'validator_name': 'int_validator', 'submitted_value': 42, 'expected_result': str(42) } ,
-            { 'validator_name': 'boolean_validator', 'submitted_value': True, 'expected_result': str(True) } ,
-            { 'validator_name': 'email_validator', 'submitted_value': 'jane.doe@company.com', 'expected_result': 'jane.doe@company.com' } ,
-            { 'validator_name': 'isodate', 'submitted_value': '2018-11-07', 'expected_result': '2018-11-07 00:00:00' } ,
-            { 'validator_name': 'foolidator', 'submitted_value': 'WUT?', 'expected_result': 'FOOOO ---> WUT? <--- BAAAAR' } ,
-            { 'validator_name': 'vier_ist_trumpf', 'submitted_value': 'WUT?', 'expected_result': 'Hurra!' } ,
-        ]
+    @pytest.mark.parametrize("data", [
+        {'validator_name': 'int_validator', 'submitted_value': 42, 'expected_result': str(42)},
+        {'validator_name': 'boolean_validator',
+            'submitted_value': True, 'expected_result': str(True)},
+        {'validator_name': 'email_validator', 'submitted_value': 'jane.doe@company.com',
+            'expected_result': 'jane.doe@company.com'},
+        {'validator_name': 'isodate', 'submitted_value': '2018-11-07',
+            'expected_result': '2018-11-07 00:00:00'},
+        {'validator_name': 'foolidator', 'submitted_value': 'WUT?',
+            'expected_result': 'FOOOO ---> WUT? <--- BAAAAR'},
+        {'validator_name': 'vier_ist_trumpf', 'submitted_value': 'WUT?', 'expected_result': 'Hurra!'},
+    ])
+    def test_valid_value_returns_200_with_correct_structure(self, app, data):
+        validator_name = data['validator_name']
+        submitted_value = data['submitted_value']
+        expected_result = data['expected_result']
+        response = app.post(
+            url=self.validate_url(),
+            content_type="application/json",
+            params=json.dumps({'validator': validator_name, 'value': submitted_value}),
+            status=200
+        )
+        data = json.loads(str(response.body))
+        assert data['validator'] == validator_name
+        assert data['success'] is True
+        assert data['value'] == submitted_value
+        assert data['result'] == expected_result
 
-        for data in test_data:
-            validator_name = data['validator_name']
-            submitted_value = data['submitted_value']
-            expected_result = data['expected_result']
-            response = app.post(
-                url=self.validate_url(),
-                content_type="application/json",
-                params=json.dumps({'validator': validator_name, 'value': submitted_value}),
-                status=200
-            )
-            data = json.loads(str(response.body))
-            LOG.debug(data)
-            assert data['validator'] == validator_name
-            assert data['success'] is True
-            assert data['value'] == submitted_value
-            assert data['result'] == expected_result
-
-    def test_invalid_value_returns_200_with_correct_structure(self, app):
-        test_data = [
-            { 'validator_name': 'int_validator', 'submitted_value': '42x' } ,
-            { 'validator_name': 'email_validator', 'submitted_value': 'jane.doeATcompany.com' } ,
-            { 'validator_name': 'isodate', 'submitted_value': '2018-13-07' } ,
-        ]
-
-        for data in test_data:
-            validator_name = data['validator_name']
-            submitted_value = data['submitted_value']
-            response = app.post(
-                url=self.validate_url(),
-                content_type="application/json",
-                params=json.dumps({ 'validator': validator_name, 'value': submitted_value }),
-                status=200
-            )
-            data = json.loads(str(response.body))
-            assert data['validator'] == validator_name
-            assert data['success'] is False
-            assert data['value'] == submitted_value
+    @pytest.mark.parametrize("data", [
+        {'validator_name': 'int_validator', 'submitted_value': '42x'},
+        {'validator_name': 'email_validator', 'submitted_value': 'jane.doeATcompany.com'},
+        {'validator_name': 'isodate', 'submitted_value': '2018-13-07'},
+    ])
+    def test_invalid_value_returns_200_with_correct_structure(self, app, data):
+        validator_name = data['validator_name']
+        submitted_value = data['submitted_value']
+        response = app.post(
+            url=self.validate_url(),
+            content_type="application/json",
+            params=json.dumps({ 'validator': validator_name, 'value': submitted_value }),
+            status=200
+        )
+        data = json.loads(str(response.body))
+        assert data['validator'] == validator_name
+        assert data['success'] is False
+        assert data['value'] == submitted_value
 
 # import json
 # import logging
