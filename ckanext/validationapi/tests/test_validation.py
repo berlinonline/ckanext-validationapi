@@ -150,37 +150,3 @@ class TestValidationController(object):
         assert data['success'] is False
         assert data['value'] == submitted_value
 
-# import json
-# import logging
-
-# from routes import url_for as url_for
-# import ckan.plugins as plugins
-# import ckan.tests.helpers as helpers
-
-# import ckanext.validationapi.error as error
-
-
-# class TestValidationController(helpers.FunctionalTestBase):
-
-#     def setup(self):
-#         super(TestValidationController, self).setup()
-#         if not plugins.plugin_loaded(VALIDATOR_PLUGIN):
-#             plugins.load(VALIDATOR_PLUGIN)
-#         if not plugins.plugin_loaded(TEST_VALIDATORS):
-#             plugins.load(TEST_VALIDATORS)
-#         self.validate_url = url_for(
-#             controller='ckanext.validationapi.controller:ValidationController',
-#             action='validate'
-#         )
-#         self.app = self._get_test_app()
-
-
-#     def teardown(self):
-#         plugins.unload(VALIDATOR_PLUGIN)
-#         plugins.unload(TEST_VALIDATORS)
-
-
-
-
-
-
