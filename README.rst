@@ -2,11 +2,10 @@
    these badges work. The necessary Travis and Coverage config files have been
    generated for you.
 
-.. image:: https://travis-ci.org/berlinonline/ckanext-validationapi.svg?branch=master
-    :target: https://travis-ci.org/berlinonline/ckanext-validationapi
+.. image:: https://github.com/berlinonline/ckanext-berlin_dataset_schema/workflows/Tests/badge.svg?branch=master)
+    :target: https://github.com/berlinonline/ckanext-berlin_dataset_schema/actions
+    :alt: Tests
 
-.. image:: https://coveralls.io/repos/berlinonline/ckanext-validationapi/badge.svg
-  :target: https://coveralls.io/r/berlinonline/ckanext-validationapi
 
 =====================
 ckanext-validationapi
@@ -181,113 +180,17 @@ The complete list of error codes is:
 Requirements
 ------------
 
-* Has been tested with CKAN 2.7.3.
+* Has been tested with CKAN 2.9.4 and requires Python 3.
 
 
-------------
-Installation
-------------
+License
+=======
 
-.. Add any additional install steps to the list below.
-   For example installing any non-Python dependencies or adding any required
-   config settings.
+This material is copyright ©
+`BerlinOnline Stadtportal GmbH & Co. KG <https://www.berlinonline.net/>`_
+.
 
-To install ckanext-validationapi:
+This extension is open and licensed under the GNU Affero General Public License (AGPL) v3.0.
+Its full text may be found at:
 
-1. Activate your CKAN virtual environment, for example::
-
-     . /usr/lib/ckan/default/bin/activate
-
-2. Install the ckanext-validationapi Python package into your virtual environment::
-
-     pip install ckanext-validationapi
-
-3. Add ``validationapi`` to the ``ckan.plugins`` setting in your CKAN
-   config file (by default the config file is located at
-   ``/etc/ckan/default/production.ini``).
-
-4. Restart CKAN. For example if you've deployed CKAN with Apache on Ubuntu::
-
-     sudo service apache2 reload
-
-------------------------
-Development Installation
-------------------------
-
-To install ckanext-validationapi for development, activate your CKAN virtualenv and
-do::
-
-    git clone https://github.com/berlinonline/ckanext-validationapi.git
-    cd ckanext-validationapi
-    python setup.py develop
-    pip install -r dev-requirements.txt
-
-
------------------
-Running the Tests
------------------
-
-To run the tests, do::
-
-    nosetests --nologcapture --with-pylons=test.ini
-
-To run the tests and produce a coverage report, first make sure you have
-coverage installed in your virtualenv (``pip install coverage``) then run::
-
-    nosetests --nologcapture --with-pylons=test.ini --with-coverage --cover-package=ckanext.validationapi --cover-inclusive --cover-erase --cover-tests
-
-
------------------------------------------
-Registering ckanext-validationapi on PyPI
------------------------------------------
-
-ckanext-validationapi should be availabe on PyPI as
-https://pypi.python.org/pypi/ckanext-validationapi. If that link doesn't work, then
-you can register the project on PyPI for the first time by following these
-steps:
-
-1. Create a source distribution of the project::
-
-     python setup.py sdist
-
-2. Register the project::
-
-     python setup.py register
-
-3. Upload the source distribution to PyPI::
-
-     python setup.py sdist upload
-
-4. Tag the first release of the project on GitHub with the version number from
-   the ``setup.py`` file. For example if the version number in ``setup.py`` is
-   0.0.1 then do::
-
-       git tag 0.0.1
-       git push --tags
-
-
-------------------------------------------------
-Releasing a New Version of ckanext-validationapi
-------------------------------------------------
-
-ckanext-validationapi is availabe on PyPI as https://pypi.python.org/pypi/ckanext-validationapi.
-To publish a new version to PyPI follow these steps:
-
-1. Update the version number in the ``setup.py`` file.
-   See `PEP 440 <http://legacy.python.org/dev/peps/pep-0440/#public-version-identifiers>`_
-   for how to choose version numbers.
-
-2. Create a source distribution of the new version::
-
-     python setup.py sdist
-
-3. Upload the source distribution to PyPI::
-
-     python setup.py sdist upload
-
-4. Tag the new release of the project on GitHub with the version number from
-   the ``setup.py`` file. For example if the version number in ``setup.py`` is
-   0.0.2 then do::
-
-       git tag 0.0.2
-       git push --tags
+http://www.fsf.org/licensing/licenses/agpl-3.0.html

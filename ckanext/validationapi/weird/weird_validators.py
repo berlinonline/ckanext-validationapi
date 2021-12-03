@@ -9,7 +9,7 @@ class WeirdValidators(SingletonPlugin):
     implements(IValidators)
 
     def foolidator(self, value):
-        return "FOOOO ---> {} <--- BAAAAR".format(value)
+        return f"FOOOO ---> {value} <--- BAAAAR"
 
     def three_is_neither_two_nor_four(self, value, balue, dalue):
         return "don't use me"
