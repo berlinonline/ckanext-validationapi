@@ -2,11 +2,10 @@
    these badges work. The necessary Travis and Coverage config files have been
    generated for you.
 
-.. image:: https://travis-ci.org/berlinonline/ckanext-validationapi.svg?branch=master
-    :target: https://travis-ci.org/berlinonline/ckanext-validationapi
+.. image:: https://github.com/berlinonline/ckanext-berlin_dataset_schema/workflows/Tests/badge.svg?branch=master)
+    :target: https://github.com/berlinonline/ckanext-berlin_dataset_schema/actions
+    :alt: Tests
 
-.. image:: https://coveralls.io/repos/berlinonline/ckanext-validationapi/badge.svg
-  :target: https://coveralls.io/r/berlinonline/ckanext-validationapi
 
 =====================
 ckanext-validationapi
