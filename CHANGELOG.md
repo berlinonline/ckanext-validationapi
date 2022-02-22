@@ -2,6 +2,12 @@
 
 ## Development
 
+## [0.2.1](https://github.com/berlinonline/ckanext-validationapi/releases/tag/0.2.1)
+
+_(2022-02-22)_
+
+- Fix codecov configuration and add badge.
+
 ## [0.2.0](https://github.com/berlinonline/ckanext-validationapi/releases/tag/0.2.0)
 
 _(2021-12-03)_
