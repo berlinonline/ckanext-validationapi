@@ -5,8 +5,8 @@
 .. image:: https://github.com/berlinonline/ckanext-validationapi/workflows/Tests/badge.svg?branch=master
     :target: https://github.com/berlinonline/ckanext-validationapi/actions
     :alt: Tests
-.. image:: https://codecov.io/github/berlinonline/ckanext-datasetsnippets/coverage.svg?branch=master
-    :target: https://codecov.io/github/berlinonline/ckanext-datasetsnippets?branch=master
+.. image:: https://codecov.io/github/berlinonline/ckanext-validationapi/coverage.svg?branch=master
+    :target: https://codecov.io/github/berlinonline/ckanext-validationapi?branch=master
     :alt: Coverage
 
 
