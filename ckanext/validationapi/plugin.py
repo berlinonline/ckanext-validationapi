@@ -29,5 +29,9 @@ class ValidationapiPlugin(SingletonPlugin):
     # IBlueprint
 
     def get_blueprint(self):
+        """
+        Implementation of
+        https://docs.ckan.org/en/latest/extensions/plugin-interfaces.html#ckan.plugins.interfaces.IBlueprint.get_blueprint
+        """
         return blueprint.validationapi
 
