@@ -2,6 +2,9 @@
 
 ## Development
 
+- Run tests on pushes, but not on pushing tags.
+- Some improvements to documentation.
+
 ## [0.2.1](https://github.com/berlinonline/ckanext-validationapi/releases/tag/0.2.1)
 
 _(2022-02-22)_
