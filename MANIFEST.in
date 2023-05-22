@@ -2,3 +2,4 @@ include README.md
 include LICENSE
 include requirements.txt
 recursive-include ckanext/validationapi *.html *.json *.js *.less *.css *.mo
+include ckanext/validationapi/VERSION
