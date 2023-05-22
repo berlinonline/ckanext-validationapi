@@ -2,6 +2,13 @@
 
 ## Development
 
+## [0.2.2](https://github.com/berlinonline/ckanext-validationapi/releases/tag/0.2.2)
+
+_(2023-05-22)_
+
+- Define extension's version string in [VERSION](VERSION), make it available as `ckanext.validationapi.__version__` and in [setup.py](setup.py).
+
+
 ## [0.2.1](https://github.com/berlinonline/ckanext-validationapi/releases/tag/0.2.1)
 
 _(2023-01-23)_

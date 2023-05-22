@@ -4,24 +4,28 @@ from codecs import open  # To use a consistent encoding
 from os import path
 
 here = path.abspath(path.dirname(__file__))
+pluginname = 'validationapi'
 
 # Get the long description from the relevant file
 with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
+with open(path.join(here, 'ckanext', pluginname, 'VERSION')) as version_file:
+    version = version_file.read().strip()
+
 setup(
-    name='''ckanext-validationapi''',
+    name=f'ckanext-{pluginname}',
 
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # http://packaging.python.org/en/latest/tutorial.html#version
-    version='0.2.0',
+    version=version,
 
     description='''A public API for CKAN's validator functions''',
     long_description=long_description,
 
     # The project's main homepage.
-    url='https://github.com/berlinonline/ckanext-validationapi',
+    url=f'https://github.com/berlinonline/ckanext-{pluginname}',
 
     # Author details
     author='''Knud Möller''',
