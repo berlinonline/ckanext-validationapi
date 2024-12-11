@@ -60,8 +60,8 @@ jobs:
         ckan -c test.ini db init
     - name: Run tests
       run: pytest --ckan-ini=test.ini --cov=ckanext.validationapi --cov-report=xml --cov-append --disable-warnings ckanext/validationapi/tests
-    - name: Upload coverage report to codecov
-      uses: codecov/codecov-action@v1
-      with:
-        file: ./coverage.xml
-        token: ${{secrets.CODECOV_TOKEN}}
+    - name: Upload coverage reports to Codecov
+      run: |
+        curl -Os https://uploader.codecov.io/latest/linux/codecov
+        chmod +x codecov
+        ./codecov
