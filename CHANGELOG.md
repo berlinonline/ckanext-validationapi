@@ -2,6 +2,14 @@
 
 ## Development
 
+## [0.2.3](https://github.com/berlinonline/ckanext-validationapi/releases/tag/0.2.3)
+
+_(2024-12-11)_
+
+- Add publiccode.yml
+- Update company information
+- Fix Github Workflow (CI/CD)
+
 ## [0.2.2](https://github.com/berlinonline/ckanext-validationapi/releases/tag/0.2.2)
 
 _(2023-05-22)_
