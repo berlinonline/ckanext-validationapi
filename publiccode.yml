@@ -8,7 +8,7 @@ applicationSuite: CKAN
 url: 'https://github.com/berlinonline/ckanext-validationapi'
 releaseDate: '2018-11-02'
 developmentStatus: stable
-softwareVersion: v0.2.2
+softwareVersion: 0.2.3
 softwareType: library
 platforms:
   - web

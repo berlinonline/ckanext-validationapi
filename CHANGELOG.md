@@ -1,7 +1,8 @@
 # Changelog
 
 ## Development
-## [0.2.3]
+
+## [0.2.3](https://github.com/berlinonline/ckanext-validationapi/releases/tag/0.2.3)
 
 _(2024-12-11)_
 
