@@ -1,0 +1,220 @@
+# This repository adheres to the publiccode.yml standard by including this 
+# metadata file that makes public software easily discoverable.
+# More info at https://github.com/italia/publiccode.yml
+
+publiccodeYmlVersion: '0.2'
+name: ckanext-validationapi
+applicationSuite: CKAN
+url: 'https://github.com/berlinonline/ckanext-validationapi'
+releaseDate: '2018-11-02'
+developmentStatus: stable
+softwareVersion: v0.2.2
+softwareType: library
+platforms:
+  - web
+maintenance:
+  type: internal
+  contacts:
+    - name: Dr. Knud Möller
+      email: knud.moeller@berlinonline.de
+legal:
+  license: AGPL-3.0-only
+  mainCopyrightOwner: BerlinOnline GmbH
+  repoOwner: BerlinOnline GmbH
+localisation:
+  localisationReady: false
+  availableLanguages:
+    - en
+description:
+  it:
+    genericName: ckanext-validationapi
+    documentation: 'https://github.com/berlinonline/ckanext-validationapi'
+    apiDocumentation: >-
+      https://github.com/berlinonline/ckanext-validationapi?tab=readme-ov-file#using-the-api
+    shortDescription: >-
+      ckanext-validationapi provides an API as a public wrapper around the
+      internal validator functions of CKAN.
+    longDescription: >
+      This plugin belongs to a set of plugins for the _Datenregister_ – the
+      non-public [CKAN](https://ckan.org/) instance that is part of Berlin's
+      open data portal [daten.berlin.de](https://daten.berlin.de/).
+
+
+      `ckanext-validationapi` provides an API as a public wrapper around the
+      internal validator functions of CKAN.
+
+
+      The plugin implements the following CKAN interfaces:
+
+
+      -
+      [IBlueprint](http://docs.ckan.org/en/latest/extensions/plugin-interfaces.html#ckan.plugins.interfaces.IBlueprint)
+
+      -
+      [IConfigurer](http://docs.ckan.org/en/latest/extensions/plugin-interfaces.html#ckan.plugins.interfaces.IConfigurer)
+
+
+      ## Requirements
+
+
+      This plugin has been tested with CKAN 2.9 (which requires Python 3).
+
+
+      ## Using the API
+
+
+      All validator functions that are available through
+      `ckan.plugins.toolkit.get\_validator()` can be used. The list of standard
+      validators that CKAN offers is available at
+      [https://docs.ckan.org/en/latest/extensions/validators.html](https://docs.ckan.org/en/latest/extensions/validators.html).
+      Plugins can add more validators by implementing the
+      [IValidators](https://docs.ckan.org/en/latest/extensions/plugin-interfaces.html#ckan.plugins.interfaces.IValidators)
+      interface.
+
+
+      The API is accessible via `$CKAN\_URL/api/validation`; currently its only
+      method is `validate`. Only POST requests with content type
+      `application/json` are accepted.
+
+
+      The expected payload to `validate` is a JSON object with two attributes:
+
+
+      - `validator`: The name of the validator as it would be passed to
+      `ckan.plugins.toolkit.get\_validator()`.
+
+      - `value`: The value we want to submit for validation.
+
+
+      Here is an example:
+
+           {
+          "validator": "email\_validator" ,
+          "value": "jane.doe@company.com"
+        }
+
+      If the validator exists, `validationapi` will call the validator function
+      with the provided value. The response will be a JSON object with these
+      attributes:
+
+
+      - `validator`: The name of the validator as it would be passed to
+      `ckan.plugins.toolkit.get\_validator()`.
+       
+      - `value`: The value that was submitted for validation.
+       
+      - `success`: Whether or not `value` passed the validation.
+       
+          - `result`: If successful, the output of the validator. This will often be the same as `value`, but sometimes the validator will perform some transformation as well.
+          - `message`: If not successful, this will contain an error message as provided by the validator.
+
+      Here are some examples for communicating with the validation API via curl:
+
+
+      ### Valid input, unchanged
+
+           curl -X POST \
+             --data '{ "validator": "email\_validator", "value": "jane.doe@company.com" }' \
+             -H "Content-Type: application/json" \
+             $CKAN\_URL/api/validation/validate
+
+           {
+          "validator": "email\_validator",
+          "value": "jane.doe@company.com",
+          "success": true,
+          "result": "jane.doe@company.com"
+        }
+
+      ### Valid input, changed
+
+           curl -X POST \
+             --data '{ "validator": "isodate", "value": "2004-10-10" }' \
+             -H "Content-Type: application/json" \
+             $CKAN\_URL/api/validation/validate
+
+           {
+          "validator": "isodate",
+          "value": "2004-10-10",
+          "success": true,
+          "result": "2004-10-10 00:00:00"
+        }
+
+      ### Invalid input
+
+           curl -X POST \
+             --data '{ "validator": "isodate", "value": "2004-10-10x" }' \
+             -H "Content-Type: application/json" \
+             $CKAN\_URL/api/validation/validate
+
+           {
+          "message": "Invalid: u'Datumsformat ung\\xfcltig.'",
+          "validator": "isodate",
+          "value": "2004-10-10x",
+          "success": false
+        }
+
+      ### Errors
+
+
+      If possible, validationapi will catch errors and provide an error message
+      in the same format as above, but with the HTTP Response Code 400 (Bad
+      Request). Below are some examples:
+
+
+      #### Unknown Validator
+
+           curl -X POST \
+             --data '{ "validator": "foolidator", "value": "barbar" }' \
+             -H "Content-Type: application/json" \
+             $CKAN\_URL/api/validation/validate
+
+           {
+          "validator": "foolidator",
+          "value": "barbar",
+          "success": false,
+          "error": {
+            "message": "Bad Request - Validator \`foolidator\` does not exist",
+            "code": 7
+          }
+        }
+
+      #### Wrong Request Format
+
+           curl $CKAN\_URL/api/validation/validate
+
+           {
+          "validator": null,
+          "value": null,
+          "success": false,
+          "error": {
+            "message": "Bad Request - Validation API accepts only POST requests with content type 'application/json'.",
+            "code": 1
+          }
+        }
+
+      #### Error Codes
+
+
+      The complete list of error codes is:
+
+
+      - Wrong HTTP method = 1
+
+      - Wrong content type = 2
+
+      - No request data found = 3
+
+      - Cannot decode JSON = 4
+
+      - Wrong type of JSON = 5
+
+      - Wrong JSON structure = 6
+
+      - Unknown validator = 7
+
+      - Validator has unexpected number of arguments = 8
+
+      - Unexpected error = 20
+categories:
+  - it-development
+  - knowledge-management
