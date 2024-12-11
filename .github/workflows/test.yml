@@ -49,6 +49,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Install CURL
+      run: apt install curl -y
     - name: Install requirements
       run: |
         pip install -r dev-requirements.txt
