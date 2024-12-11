@@ -20,18 +20,20 @@ jobs:
     # needs: lint
     strategy:
       matrix:
-        ckan-version: [2.9]
+        ckan-base-version: [2.9]
+        ckan-version: [py3.9]
+        solr-version: [solr8]
       fail-fast: false
 
-    name: CKAN ${{ matrix.ckan-version }}
+    name: CKAN ${{ matrix.ckan-base-version }}
     runs-on: ubuntu-latest
     container:
-      image: openknowledge/ckan-dev:${{ matrix.ckan-version }}
+      image: ckan/ckan-dev:${{ matrix.ckan-base-version }}-${{ matrix.ckan-version }}
     services:
       solr:
-        image: ckan/ckan-solr-dev:${{ matrix.ckan-version }}
+        image: ckan/ckan-solr:${{ matrix.ckan-base-version }}-${{ matrix.solr-version }}
       postgres:
-        image: ckan/ckan-postgres-dev:${{ matrix.ckan-version }}
+        image: ckan/ckan-postgres-dev:${{ matrix.ckan-base-version }}
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
