@@ -1,7 +1,7 @@
 # ckanext-validationapi
 
-[![Tests](https://github.com/berlinonline/ckanext-validationapi/workflows/Tests/badge.svg?branch=master)](https://github.com/berlinonline/ckanext-validationapi/actions)
-[![Code Coverage](http://codecov.io/github/berlinonline/ckanext-validationapi/coverage.svg?branch=master)](http://codecov.io/github/berlinonline/ckanext-validationapi?branch=master)
+[![Tests](https://github.com/berlinonline/ckanext-validationapi/actions/workflows/test.yml/badge.svg?branch=master)](https://github.com/berlinonline/ckanext-validationapi/actions)
+[![Code Coverage](https://codecov.io/github/berlinonline/ckanext-validationapi/coverage.svg?branch=master)](http://codecov.io/github/berlinonline/ckanext-validationapi?branch=master)
 
 This plugin belongs to a set of plugins for the _Datenregister_ – the non-public [CKAN](https://ckan.org) instance that is part of Berlin's open data portal [daten.berlin.de](https://daten.berlin.de).
 
@@ -171,7 +171,7 @@ The complete list of error codes is:
 ## License
 
 This material is copyright ©
-[BerlinOnline Stadtportal GmbH](https://www.berlinonline.net/).
+[BerlinOnline GmbH](https://www.berlinonline.net/).
 
 This extension is open and licensed under the GNU Affero General Public License (AGPL) v3.0.
 Its full text may be found at:

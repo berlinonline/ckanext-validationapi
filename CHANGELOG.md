@@ -6,9 +6,9 @@
 
 _(2024-12-11)_
 
-- Add publiccode.yml
-- Update company information
-- Fix Github Workflow (CI/CD)
+- Add [publiccode.yml](publiccode.yml).
+- Update company information.
+- Fix Github Workflow (CI/CD).
 
 ## [0.2.2](https://github.com/berlinonline/ckanext-validationapi/releases/tag/0.2.2)
 
